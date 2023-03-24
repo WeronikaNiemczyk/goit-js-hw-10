@@ -21,33 +21,35 @@ const inputHandler = event => {
     return;
   }
 
-  fetchCountries(textInput)
-    .then(dataList => {
-      console.log('dataList', dataList);
-      if (dataList.length > 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      }
-      showResults(dataList);
-    })
-    .catch(error => {
+  fetchCountries(textInput).then(dataList => {
+    console.log('dataList', dataList);
+    if (dataList.length > 10) {
       cleanInput(countryList);
-      cleanInput(countryInfo);
-      Notiflix.Notify.failure('Oops, there is no country with that name');
-    });
+      Notiflix.Notify.info(
+        'Too many matches found. Please enter a more specific name.'
+      );
+    } else {
+      showResults(dataList);
+    }
+  });
+  // .catch(error => {
+  //   cleanInput(countryList);
+  //   cleanInput(countryInfo);
+  //   Notiflix.Notify.failure('Oops, there is no country with that name');
+  // });
 };
 
 const showResults = dataList => {
-  if (dataList.length === 1) {
+  if (dataList.length < 2) {
     cleanInput(countryList);
     const ShowInfo = createInfo(dataList);
     countryInfo.innerHTML = ShowInfo;
     // console.log(ShowInfo);
+  } else {
+    cleanInput(countryInfo);
+    const ShowList = createList(dataList);
+    countryList.innerHTML = ShowList;
   }
-  cleanInput(countryInfo);
-  const ShowList = createList(dataList);
-  countryList.innerHTML = ShowList;
 };
 
 const createList = dataList => {
@@ -66,7 +68,7 @@ const createInfo = dataList => {
       }</h1>
   <p><b>Capital:</b> ${capital}</p>
   <p><b>Population:</b> ${population}</p>
-  <p><b>Languages:</b> ${Object.values(languages.value)}</p>`
+  <p><b>Languages:</b> ${Object.values(languages)}</p>`
   );
 };
 
