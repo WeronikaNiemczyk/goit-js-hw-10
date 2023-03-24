@@ -38,6 +38,18 @@ const inputHandler = event => {
     });
 };
 
+const showResults = dataList => {
+  if (dataList.length === 1) {
+    cleanInput(countryList);
+    const ShowInfo = createInfo(dataList);
+    countryInfo.innerHTML = ShowInfo;
+    // console.log(ShowInfo);
+  }
+  cleanInput(countryInfo);
+  const ShowList = createList(dataList);
+  countryList.innerHTML = ShowList;
+};
+
 const createList = dataList => {
   return dataList
     .map(
@@ -54,19 +66,8 @@ const createInfo = dataList => {
       }</h1>
   <p><b>Capital:</b> ${capital}</p>
   <p><b>Population:</b> ${population}</p>
-  <p><b>Languages:</b> ${Object.values(languages)}</p>`
+  <p><b>Languages:</b> ${Object.values(languages.value)}</p>`
   );
-};
-const showResults = dataList => {
-  if (dataList.length === 1) {
-    cleanInput(countryList);
-    const ShowInfo = createInfo(dataList);
-    countryInfo.innerHTML = ShowInfo;
-    console.log(ShowInfo);
-  }
-  cleanInput(countryInfo);
-  const ShowList = createList(dataList);
-  countryList.innerHTML = ShowList;
 };
 
 // console.log(fetchCountries(textInput))

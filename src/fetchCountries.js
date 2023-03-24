@@ -1,5 +1,3 @@
-import './css/styles.css';
-
 export const fetchCountries = name => {
   const BASE_URL = 'https://restcountries.com/v3.1/name/';
   const properties = 'fields=name,capital,population,flags,languages';
@@ -11,7 +9,7 @@ export const fetchCountries = name => {
       }
       const countryData = response.json();
       return countryData;
-      //   console.log('CountryData: ', countryData);
+        // console.log('CountryData: ', countryData);
     })
     .then(receivedCountries => {
       //   console.log('countries: ', receivedCountries);
@@ -22,7 +20,7 @@ export const fetchCountries = name => {
     });
 };
 
-console.log(fetchCountries());
+// console.log(fetchCountries());
 
 // export const fetchCountries = name => {
 //   const basicURL = 'https://restcountries.com/v3.1/name/';
