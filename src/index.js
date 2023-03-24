@@ -21,22 +21,23 @@ const inputHandler = event => {
     return;
   }
 
-  fetchCountries(textInput).then(dataList => {
-    console.log('dataList', dataList);
-    if (dataList.length > 10) {
+  fetchCountries(textInput)
+    .then(dataList => {
+      console.log('dataList', dataList);
+      if (dataList.length > 10) {
+        cleanInput(countryList);
+        Notiflix.Notify.info(
+          'Too many matches found. Please enter a more specific name.'
+        );
+      } else {
+        showResults(dataList);
+      }
+    })
+    .catch(error => {
       cleanInput(countryList);
-      Notiflix.Notify.info(
-        'Too many matches found. Please enter a more specific name.'
-      );
-    } else {
-      showResults(dataList);
-    }
-  });
-  // .catch(error => {
-  //   cleanInput(countryList);
-  //   cleanInput(countryInfo);
-  //   Notiflix.Notify.failure('Oops, there is no country with that name');
-  // });
+      cleanInput(countryInfo);
+      Notiflix.Notify.failure('Oops, there is no country with that name');
+    });
 };
 
 const showResults = dataList => {
